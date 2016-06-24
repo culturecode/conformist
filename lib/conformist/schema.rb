@@ -58,6 +58,7 @@ module Conformist
           enumerables.each do |enumerable|
             if options.delete :skip_first
               columns.each {|column| column.calculate_indices!(enumerable) }
+              columns.reject! {|column| column.indexes.compact.empty? } if options.delete(:skip_missing_columns)
               next
             end
 
